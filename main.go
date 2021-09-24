@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/a180024/api_template/config"
-	"github.com/a180024/api_template/controllers"
-	"github.com/a180024/api_template/db"
-	"github.com/a180024/api_template/models"
-	"github.com/a180024/api_template/server"
-	"github.com/a180024/api_template/services"
+	"github.com/a180024/golang-api/config"
+	"github.com/a180024/golang-api/controllers"
+	"github.com/a180024/golang-api/db"
+	"github.com/a180024/golang-api/models"
+	"github.com/a180024/golang-api/server"
+	"github.com/a180024/golang-api/services"
 )
 
 func main() {
