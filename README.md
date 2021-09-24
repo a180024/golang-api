@@ -11,6 +11,18 @@ Validation
 Swagger
 Test & CICD
 
+## Installation
+
+```
+make deps
+```
+
+## Usage
+
+```
+make run
+```
+
 ## Credits
 
-[https://github.com/vsouza](https://github.com/vsouza)
+[https://github.com/vsouza/go-gin-boilerplate](https://github.com/vsouza/go-gin-boilerplate)
