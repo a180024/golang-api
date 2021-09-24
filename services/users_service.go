@@ -1,11 +1,8 @@
 package services
 
 import (
-	"fmt"
-
-	"github.com/a180024/nft_api/dto/users"
+	"github.com/a180024/nft_api/dto"
 	"github.com/a180024/nft_api/models"
-	"github.com/a180024/nft_api/utils/errors"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -14,32 +11,33 @@ type userService struct {
 }
 
 type UserService interface {
-	CreateUser(userDto users.UserDto) (*users.UserDto, *errors.ErrResponse)
+	CreateUser(userDto dto.UserDto) error
 }
 
-func newUserService(userRepository models.UserRepository) UserService {
+func NewUserService(userRepository models.UserRepository) UserService {
 	return &userService{
 		userRepository: userRepository,
 	}
 
 }
 
-func (userService *userService) CreateUser(userDto users.UserDto) (*users.UserDto, *errors.ErrResponse) {
+func (userService *userService) CreateUser(userDto dto.UserDto) error {
 	if err := userDto.Validate(); err != nil {
-		return nil, err
+		return err
 	}
 
-	// password encryption
+	// Password encryption
 	pwSlice, err := bcrypt.GenerateFromPassword([]byte(userDto.Password), 14)
 	if err != nil {
-		return nil, errors.NewBadRequestError("Failed to encrypt the password")
+		return err
 	}
 	userDto.Password = string(pwSlice[:])
 
-	// save in DB
-	user, err := userService.userRepository.Save(userDto)
+	// Save in DB
+	err = userService.userRepository.Save(userDto)
+	if err != nil {
+		return err
+	}
 
-	fmt.Println(user)
-
-	return &userDto, nil
+	return nil
 }

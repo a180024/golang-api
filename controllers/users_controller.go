@@ -1,11 +1,11 @@
-package controller
+package controllers
 
 import (
+	"log"
 	"net/http"
 
-	"github.com/a180024/nft_api/dto/users"
+	"github.com/a180024/nft_api/dto"
 	"github.com/a180024/nft_api/services"
-	"github.com/a180024/nft_api/utils/errors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -24,13 +24,22 @@ func NewUserController(userService services.UserService) UserController {
 }
 
 func (userController *userController) Register(c *gin.Context) {
-	var user users.UserDto
+	var user dto.UserDto
 
 	if err := c.ShouldBindJSON(&user); err != nil {
-		err := errors.NewBadRequestError("Invalid Json Body")
-		c.JSON(err.Status, err)
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, err)
+		return
 	}
 
-	userController.userService.CreateUser(user)
-	c.JSON(http.StatusOK, gin.H{"status": "Successfully registered!"})
+	err := userController.userService.CreateUser(user)
+	if err != nil {
+		log.Println(err)
+		c.JSON(http.StatusBadRequest, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, &dto.ResponseDto{
+		Message: "User successfully registered!",
+	})
 }

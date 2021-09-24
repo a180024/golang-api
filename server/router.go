@@ -1,18 +1,18 @@
 package server
 
 import (
-	"github.com/a180024/nft_api/controller/users"
+	"github.com/a180024/nft_api/controllers"
 	"github.com/gin-gonic/gin"
 )
 
-func NewRouter() *gin.Engine {
+func NewRouter(userController controllers.UserController) *gin.Engine {
 	router := gin.Default()
 
 	v1 := router.Group("v1")
 	{
 		authGroup := v1.Group("auth")
 		{
-			authGroup.POST("/register", users.Register)
+			authGroup.POST("/register", userController.Register)
 		}
 	}
 

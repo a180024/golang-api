@@ -1,7 +1,6 @@
 package models
 
 import (
-	"log"
 	"time"
 
 	"github.com/aws/aws-sdk-go/aws"
@@ -9,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"github.com/google/uuid"
 
-	"github.com/a180024/nft_api/dto/users"
+	"github.com/a180024/nft_api/dto"
 )
 
 type User struct {
@@ -26,8 +25,8 @@ type userRepository struct {
 }
 
 type UserRepository interface {
-	Save(userDto users.UserDto) (*User, error)
-	FindOneByID(id string) (*User, error)
+	Save(userDto dto.UserDto) error
+	FindOneByID(id string) error
 }
 
 func NewUserRepository(db *dynamodb.DynamoDB) *userRepository {
@@ -37,7 +36,7 @@ func NewUserRepository(db *dynamodb.DynamoDB) *userRepository {
 }
 
 /* Methods */
-func (userRepository *userRepository) Save(userDto users.UserDto) (*User, error) {
+func (userRepository *userRepository) Save(userDto dto.UserDto) error {
 	db := userRepository.db
 	id := uuid.NewString()
 	user := User{
@@ -50,21 +49,20 @@ func (userRepository *userRepository) Save(userDto users.UserDto) (*User, error)
 	}
 	item, err := dynamodbattribute.MarshalMap(user)
 	if err != nil {
-		log.Println(err)
-		return nil, err
+		return err
 	}
 	params := &dynamodb.PutItemInput{
-		Item:      item,
-		TableName: aws.String("User"),
+		Item:                item,
+		TableName:           aws.String("User"),
+		ConditionExpression: aws.String("attribute_not_exists(username) AND attribute_not_exists(email)"),
 	}
 	if _, err := db.PutItem(params); err != nil {
-		log.Println(err)
-		return nil, err
+		return err
 	}
-	return &user, nil
+	return nil
 }
 
-func (userRepository *userRepository) FindOneByID(id string) (*User, error) {
+func (userRepository *userRepository) FindOneByID(id string) error {
 	db := userRepository.db
 	params := &dynamodb.GetItemInput{
 		TableName: aws.String("User"),
@@ -77,13 +75,11 @@ func (userRepository *userRepository) FindOneByID(id string) (*User, error) {
 	}
 	resp, err := db.GetItem(params)
 	if err != nil {
-		log.Println(err)
-		return nil, err
+		return err
 	}
 	var user *User
 	if err := dynamodbattribute.UnmarshalMap(resp.Item, &user); err != nil {
-		log.Println(err)
-		return nil, err
+		return err
 	}
-	return user, nil
+	return nil
 }
