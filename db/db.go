@@ -5,9 +5,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 )
 
-var db *dynamodb.DynamoDB
-
-func Init() {
+func Init() *dynamodb.DynamoDB {
 	// Initialize a session that the SDK will use to load
 	// credentials from the shared credentials file ~/.aws/credentials
 	// and region from the shared configuration file ~/.aws/config.
@@ -15,10 +13,6 @@ func Init() {
 		SharedConfigState: session.SharedConfigEnable,
 	}))
 
-	// Create dynamodb client
-	db = dynamodb.New(sess)
-}
-
-func getDb() *dynamodb.DynamoDB {
-	return db
+	// Return dynamodb client
+	return dynamodb.New(sess)
 }

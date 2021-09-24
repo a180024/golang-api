@@ -1,6 +1,11 @@
 package server
 
+import (
+	"github.com/a180024/nft_api/config"
+)
+
 func Init() {
 	r := NewRouter()
-	r.Run(":8080")
+	c := config.GetConfig()
+	r.Run(c.GetString("port"))
 }
