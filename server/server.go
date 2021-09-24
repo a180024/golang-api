@@ -1,8 +1,8 @@
 package server
 
 import (
-	"github.com/a180024/nft_api/config"
-	"github.com/a180024/nft_api/controllers"
+	"github.com/a180024/golang-api/config"
+	"github.com/a180024/golang-api/controllers"
 )
 
 func Init(userController controllers.UserController) {

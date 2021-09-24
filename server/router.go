@@ -1,7 +1,7 @@
 package server
 
 import (
-	"github.com/a180024/nft_api/controllers"
+	"github.com/a180024/golang-api/controllers"
 	"github.com/gin-gonic/gin"
 )
 

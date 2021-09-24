@@ -1,8 +1,8 @@
 package services
 
 import (
-	"github.com/a180024/nft_api/dto"
-	"github.com/a180024/nft_api/models"
+	"github.com/a180024/golang-api/dto"
+	"github.com/a180024/golang-api/models"
 	"golang.org/x/crypto/bcrypt"
 )
 

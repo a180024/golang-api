@@ -8,7 +8,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
 	"github.com/google/uuid"
 
-	"github.com/a180024/nft_api/dto"
+	"github.com/a180024/golang-api/dto"
 )
 
 type User struct {

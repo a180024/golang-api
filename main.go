@@ -5,12 +5,12 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/a180024/nft_api/config"
-	"github.com/a180024/nft_api/controllers"
-	"github.com/a180024/nft_api/db"
-	"github.com/a180024/nft_api/models"
-	"github.com/a180024/nft_api/server"
-	"github.com/a180024/nft_api/services"
+	"github.com/a180024/api_template/config"
+	"github.com/a180024/api_template/controllers"
+	"github.com/a180024/api_template/db"
+	"github.com/a180024/api_template/models"
+	"github.com/a180024/api_template/server"
+	"github.com/a180024/api_template/services"
 )
 
 func main() {

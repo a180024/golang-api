@@ -4,8 +4,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/a180024/nft_api/dto"
-	"github.com/a180024/nft_api/services"
+	"github.com/a180024/golang-api/dto"
+	"github.com/a180024/golang-api/services"
 	"github.com/gin-gonic/gin"
 )
 

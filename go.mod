@@ -1,4 +1,4 @@
-module github.com/a180024/nft_api
+module github.com/a180024/golang-api
 
 go 1.16
 
