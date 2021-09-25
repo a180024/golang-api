@@ -28,7 +28,6 @@ func NewUserRepository(db *dynamodb.DynamoDB) *userRepository {
 	}
 }
 
-/* Methods */
 func (userRepository *userRepository) Save(userDto dto.UserDto) error {
 	db := userRepository.db
 	id := uuid.NewString()
@@ -78,6 +77,7 @@ func (userRepository *userRepository) FindOneByID(id string) (*dto.UserResponseD
 	return user, err
 }
 
+/* This method requires a DynamoDB GSI on the username field */
 func (userRepository *userRepository) FindOneByUserName(username string) (*dto.UserResponseDto, error) {
 	db := userRepository.db
 	params := &dynamodb.QueryInput{

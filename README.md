@@ -5,14 +5,13 @@
 Golang Gin API with JWT authentication, DynamoDB support and Swagger documentation.
 
 TODO:
-Validation
 Swagger
 Tests & Github Actions
 
 ## Installation
 
 ```
-make deps
+$ make deps
 ```
 
 ## Usage
@@ -20,7 +19,7 @@ make deps
 - Fill in environment variables in the yaml files under /config
 
 ```
-make run
+$ make run
 ```
 
 ## Credits

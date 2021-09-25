@@ -23,6 +23,7 @@ func NewUserService(userRepository models.UserRepository) UserService {
 }
 
 func (userService *userService) CreateUser(userDto dto.UserDto) error {
+	// Validate Dto fields
 	if err := userDto.Validate(); err != nil {
 		return err
 	}

@@ -30,7 +30,7 @@ func (userController *userController) Register(c *gin.Context) {
 	// Bind JSON
 	if err := c.ShouldBindJSON(&user); err != nil {
 		log.Println(err)
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -38,7 +38,7 @@ func (userController *userController) Register(c *gin.Context) {
 	err := userController.userService.CreateUser(user)
 	if err != nil {
 		log.Println(err)
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -53,7 +53,7 @@ func (userController *userController) FindOneByID(c *gin.Context) {
 	// Bind URI
 	if err := c.ShouldBindUri(&ID); err != nil {
 		log.Println(err)
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -61,7 +61,7 @@ func (userController *userController) FindOneByID(c *gin.Context) {
 	user, err := userController.userService.FindOneByID(ID.ID)
 	if err != nil {
 		log.Println(err)
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 

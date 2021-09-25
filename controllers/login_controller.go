@@ -30,7 +30,7 @@ func (loginController *loginController) Login(c *gin.Context) {
 	// Bind JSON
 	err := c.ShouldBind(&credentials)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
@@ -42,7 +42,7 @@ func (loginController *loginController) Login(c *gin.Context) {
 		})
 		return
 	} else if err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, err.Error())
 		return
 	}
 
