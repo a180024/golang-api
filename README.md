@@ -17,6 +17,8 @@ make deps
 
 ## Usage
 
+- Fill in environment variables in the yaml files under /config
+
 ```
 make run
 ```
