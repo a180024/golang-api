@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func NewRouter(userController controllers.UserController) *gin.Engine {
+func NewRouter(userController controllers.UserController, loginController controllers.LoginController) *gin.Engine {
 	router := gin.Default()
 
 	v1 := router.Group("v1")
@@ -13,6 +13,11 @@ func NewRouter(userController controllers.UserController) *gin.Engine {
 		authGroup := v1.Group("auth")
 		{
 			authGroup.POST("/register", userController.Register)
+			authGroup.POST("/login", loginController.Login)
+		}
+		userGroup := v1.Group("user")
+		{
+			userGroup.GET("/:id", userController.FindOneByID)
 		}
 	}
 

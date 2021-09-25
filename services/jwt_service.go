@@ -3,14 +3,14 @@ package services
 import (
 	"fmt"
 	"log"
-	"os"
 	"time"
 
+	"github.com/a180024/golang-api/config"
 	"github.com/dgrijalva/jwt-go"
 )
 
 type JWTService interface {
-	GenerateToken(name string, admin bool) string
+	GenerateToken(name string) string
 	ValidateToken(tokenString string) (*jwt.Token, error)
 }
 
@@ -27,14 +27,15 @@ func NewJWTService() JWTService {
 }
 
 func getSecretKey() string {
-	secret := os.Getenv("JWT_SECRET")
-	if secret == "" {
-		secret = "secret"
+	c := config.GetConfig()
+	secretKey := c.GetString("secretKey")
+	if secretKey == "" {
+		secretKey = "secret"
 	}
-	return secret
+	return secretKey
 }
 
-func (jwtSrv *jwtService) GenerateToken(username string, admin bool) string {
+func (jwtSrv *jwtService) GenerateToken(username string) string {
 	claims := &jwt.StandardClaims{
 		ExpiresAt: time.Now().Add(time.Hour * 72).Unix(),
 		Issuer:    jwtSrv.issuer,

@@ -2,14 +2,13 @@
 
 > Uses Golang, Gin, DynamoDB
 
-Golang Gin API with JWT Authentication.
+Golang Gin API with JWT authentication, DynamoDB support and Swagger documentation.
 
 TODO:
-New Login Controller
-FindOneByID Endpoint
+JWT for FindOneByID
 Validation
 Swagger
-Test & CICD
+Tests & Github Actions
 
 ## Installation
 

@@ -12,6 +12,7 @@ type userService struct {
 
 type UserService interface {
 	CreateUser(userDto dto.UserDto) error
+	FindOneByID(id string) (*dto.UserResponseDto, error)
 }
 
 func NewUserService(userRepository models.UserRepository) UserService {
@@ -40,4 +41,12 @@ func (userService *userService) CreateUser(userDto dto.UserDto) error {
 	}
 
 	return nil
+}
+
+func (userService *userService) FindOneByID(id string) (*dto.UserResponseDto, error) {
+	user, err := userService.userRepository.FindOneByID(id)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
 }

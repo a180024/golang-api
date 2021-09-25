@@ -27,8 +27,11 @@ func main() {
 	var userRepository models.UserRepository = models.NewUserRepository(db)
 	// Create Services
 	var userService services.UserService = services.NewUserService(userRepository)
+	var jwtService services.JWTService = services.NewJWTService()
+	var loginService services.LoginService = services.NewLoginService(userRepository)
 	// Create Controllers
 	var userController controllers.UserController = controllers.NewUserController(userService)
+	var loginController controllers.LoginController = controllers.NewLoginController(loginService, jwtService)
 
-	server.Init(userController)
+	server.Init(userController, loginController)
 }
