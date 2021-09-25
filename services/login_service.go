@@ -1,8 +1,6 @@
 package services
 
 import (
-	"fmt"
-
 	"github.com/a180024/golang-api/models"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -27,7 +25,6 @@ func (loginService *loginService) Login(username string, password string) (bool,
 	if err != nil {
 		return false, err
 	}
-	fmt.Println("password", user.Password)
 
 	// Compare password
 	err = bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password))

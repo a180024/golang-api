@@ -5,7 +5,6 @@
 Golang Gin API with JWT authentication, DynamoDB support and Swagger documentation.
 
 TODO:
-JWT for FindOneByID
 Validation
 Swagger
 Tests & Github Actions
