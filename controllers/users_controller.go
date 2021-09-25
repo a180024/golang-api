@@ -24,6 +24,15 @@ func NewUserController(userService services.UserService) UserController {
 	}
 }
 
+// Registration godoc
+// @Summary Registers a user
+// @Schemes
+// @Description Registers a user by saving to DB
+// @Accept json
+// @Produce json
+// @Param Details body dto.UserDto true "Your registration details"
+// @Success 200 {object} dto.ResponseDto
+// @Router /auth/register [post]
 func (userController *userController) Register(c *gin.Context) {
 	var user dto.UserDto
 
@@ -47,6 +56,16 @@ func (userController *userController) Register(c *gin.Context) {
 	})
 }
 
+// Find User godoc
+// @Summary Finds a user by ID
+// @Schemes
+// @Security BearerAuth
+// @Description Finds a user by querying from DB
+// @Param id path string true "User ID"
+// @Param authorization header string true "Authorization"
+// @Produce json
+// @Success 200 {object} dto.UserResponseDto
+// @Router /user/{id} [get]
 func (userController *userController) FindOneByID(c *gin.Context) {
 	var ID dto.UserIdDto
 

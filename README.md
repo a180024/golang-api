@@ -5,7 +5,6 @@
 Golang Gin API with JWT authentication, DynamoDB support and Swagger documentation.
 
 TODO:
-Swagger
 Tests & Github Actions
 
 ## Installation
@@ -21,6 +20,10 @@ $ make deps
 ```
 $ make run
 ```
+
+## Swagger
+
+Go to [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
 
 ## Credits
 

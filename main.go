@@ -8,6 +8,7 @@ import (
 	"github.com/a180024/golang-api/config"
 	"github.com/a180024/golang-api/controllers"
 	"github.com/a180024/golang-api/db"
+	"github.com/a180024/golang-api/docs"
 	"github.com/a180024/golang-api/models"
 	"github.com/a180024/golang-api/server"
 	"github.com/a180024/golang-api/services"
@@ -22,6 +23,9 @@ func main() {
 	flag.Parse()
 	config.Init(*env)
 	db := db.Init()
+
+	// Swagger
+	docs.SwaggerInfo.BasePath = "/v1"
 
 	// Create Repositories
 	var userRepository models.UserRepository = models.NewUserRepository(db)

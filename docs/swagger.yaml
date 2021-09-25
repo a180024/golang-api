@@ -1,0 +1,110 @@
+definitions:
+  dto.LoginDto:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  dto.ResponseDto:
+    properties:
+      message:
+        type: string
+    type: object
+  dto.UserDto:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+  dto.UserResponseDto:
+    properties:
+      created_at:
+        type: integer
+      email:
+        type: string
+      password:
+        type: string
+      updated_at:
+        type: integer
+      user_id:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /auth/login:
+    post:
+      consumes:
+      - application/json
+      description: Checks if user is authenticated and returns JWT token
+      parameters:
+      - description: Your login credentials
+        in: body
+        name: Credentials
+        required: true
+        schema:
+          $ref: '#/definitions/dto.LoginDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: User login
+  /auth/register:
+    post:
+      consumes:
+      - application/json
+      description: Registers a user by saving to DB
+      parameters:
+      - description: Your registration details
+        in: body
+        name: Details
+        required: true
+        schema:
+          $ref: '#/definitions/dto.UserDto'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.ResponseDto'
+      summary: Registers a user
+  /user/{id}:
+    get:
+      description: Finds a user by querying from DB
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Authorization
+        in: header
+        name: authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dto.UserResponseDto'
+      security:
+      - BearerAuth: []
+      summary: Finds a user by ID
+swagger: "2.0"

@@ -24,6 +24,15 @@ func NewLoginController(loginService services.LoginService, jwtService services.
 	}
 }
 
+// Login godoc
+// @Summary User login
+// @Schemes
+// @Description Checks if user is authenticated and returns JWT token
+// @Accept json
+// @Produce json
+// @Param Credentials body dto.LoginDto true "Your login credentials"
+// @Success 200 {object} map[string]interface{}
+// @Router /auth/login [post]
 func (loginController *loginController) Login(c *gin.Context) {
 	var credentials dto.LoginDto
 
