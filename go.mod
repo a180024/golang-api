@@ -21,6 +21,7 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/spf13/viper v1.9.0
+	github.com/stretchr/testify v1.7.0 // indirect
 	github.com/swaggo/files v0.0.0-20210815190702-a29dd2bc99b2 // indirect
 	github.com/swaggo/gin-swagger v1.3.2 // indirect
 	github.com/swaggo/swag v1.7.3 // indirect

@@ -2,9 +2,6 @@
 
 Golang Gin API with JWT authentication, DynamoDB support and Swagger documentation.
 
-TODO:
-Tests & Github Actions
-
 ## Installation
 
 ```
@@ -17,7 +14,7 @@ $ make deps
 
 Then, 
 ```
-$ export AWS_ACCESS_KEY_ID=$(aws configure get aws_access_key_id)                        │
+$ export AWS_ACCESS_KEY_ID=$(aws configure get aws_access_key_id)                        
 $ export AWS_SECRET_ACCESS_KEY=$(aws configure get aws_secret_access_key)
 ```
 
@@ -35,7 +32,15 @@ Create DynamoDB tables,
 $ make run
 ```
 
-## Swagger
+## Test
+
+- Run a DynamoDB container
+
+```
+$ make test
+```
+
+## Swagger Docs
 
 Go to [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
 

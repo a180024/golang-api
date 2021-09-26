@@ -1,7 +1,7 @@
 port: ":8080"
 secretKey: "YOUR-SECRET-KEY"
 dbRegion: "ap-southeast-1"
-dbEndpointURL: "http://localhost:8000"
+dbEndpointURL: "dynamodb.ap-southeast-1.amazonaws.com"
 
 
 

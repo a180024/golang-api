@@ -15,6 +15,8 @@ func Init(env string) {
 	config.SetConfigType("yaml")
 	config.SetConfigName(env)
 	config.AddConfigPath("config/")
+	// Path for testing
+	config.AddConfigPath("../config/")
 
 	err = config.ReadInConfig()
 	if err != nil {
