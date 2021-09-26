@@ -17,9 +17,9 @@ type userRepository struct {
 }
 
 type UserRepository interface {
-	Save(userDto dto.UserDto) error
-	FindOneByID(id string) (*dto.UserResponseDto, error)
-	FindOneByUserName(id string) (*dto.UserResponseDto, error)
+	Save(userDto dto.CreateUserDto) error
+	FindOneByID(id string) (*dto.UserDto, error)
+	FindOneByUserName(id string) (*dto.UserDto, error)
 }
 
 func NewUserRepository(db *dynamodb.DynamoDB) *userRepository {
@@ -28,10 +28,10 @@ func NewUserRepository(db *dynamodb.DynamoDB) *userRepository {
 	}
 }
 
-func (userRepository *userRepository) Save(userDto dto.UserDto) error {
+func (userRepository *userRepository) Save(userDto dto.CreateUserDto) error {
 	db := userRepository.db
 	id := uuid.NewString()
-	user := dto.UserResponseDto{
+	user := dto.UserDto{
 		ID:        id,
 		UserName:  userDto.UserName,
 		Password:  userDto.Password,
@@ -46,7 +46,7 @@ func (userRepository *userRepository) Save(userDto dto.UserDto) error {
 	params := &dynamodb.PutItemInput{
 		Item:                item,
 		TableName:           aws.String("User"),
-		ConditionExpression: aws.String("attribute_not_exists(username) AND attribute_not_exists(email)"),
+		ConditionExpression: aws.String("attribute_not_exists(user_id)"),
 	}
 	if _, err := db.PutItem(params); err != nil {
 		return err
@@ -54,7 +54,7 @@ func (userRepository *userRepository) Save(userDto dto.UserDto) error {
 	return nil
 }
 
-func (userRepository *userRepository) FindOneByID(id string) (*dto.UserResponseDto, error) {
+func (userRepository *userRepository) FindOneByID(id string) (*dto.UserDto, error) {
 	db := userRepository.db
 	params := &dynamodb.GetItemInput{
 		TableName: aws.String("User"),
@@ -70,7 +70,7 @@ func (userRepository *userRepository) FindOneByID(id string) (*dto.UserResponseD
 		return nil, err
 	}
 	fmt.Println("Resp", resp)
-	var user *dto.UserResponseDto
+	var user *dto.UserDto
 	if err := dynamodbattribute.UnmarshalMap(resp.Item, &user); err != nil {
 		return nil, err
 	}
@@ -78,7 +78,7 @@ func (userRepository *userRepository) FindOneByID(id string) (*dto.UserResponseD
 }
 
 /* This method requires a DynamoDB GSI on the username field */
-func (userRepository *userRepository) FindOneByUserName(username string) (*dto.UserResponseDto, error) {
+func (userRepository *userRepository) FindOneByUserName(username string) (*dto.UserDto, error) {
 	db := userRepository.db
 	params := &dynamodb.QueryInput{
 		TableName:              aws.String("User"),
@@ -95,7 +95,7 @@ func (userRepository *userRepository) FindOneByUserName(username string) (*dto.U
 		return nil, err
 	}
 	fmt.Println("Resp", resp)
-	var users []dto.UserResponseDto
+	var users []dto.UserDto
 	if err := dynamodbattribute.UnmarshalListOfMaps(resp.Items, &users); err != nil {
 		return nil, err
 	} else if len(users) > 0 {

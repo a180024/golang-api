@@ -34,7 +34,7 @@ func NewUserController(userService services.UserService) UserController {
 // @Success 200 {object} dto.ResponseDto
 // @Router /auth/register [post]
 func (userController *userController) Register(c *gin.Context) {
-	var user dto.UserDto
+	var user dto.CreateUserDto
 
 	// Bind JSON
 	if err := c.ShouldBindJSON(&user); err != nil {

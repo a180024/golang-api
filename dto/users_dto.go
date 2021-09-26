@@ -2,7 +2,7 @@ package dto
 
 import "github.com/go-playground/validator/v10"
 
-type UserDto struct {
+type CreateUserDto struct {
 	UserName string `json:"username" validate:"required"`
 	Password string `json:"password" validate:"required"`
 	Email    string `json:"email" validate:"required,email"`
@@ -12,7 +12,7 @@ type UserIdDto struct {
 	ID string `uri:"id" binding:"required,uuid"`
 }
 
-type UserResponseDto struct {
+type UserDto struct {
 	ID        string `json:"user_id"`
 	UserName  string `json:"username"`
 	Password  string `json:"password"`
@@ -21,7 +21,7 @@ type UserResponseDto struct {
 	UpdatedAt int64  `json:"updated_at"`
 }
 
-func (userDto *UserDto) Validate() error {
+func (userDto *CreateUserDto) Validate() error {
 	v := validator.New()
 	if err := v.Struct(userDto); err != nil {
 		return err
