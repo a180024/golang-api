@@ -34,7 +34,7 @@ $ make run
 
 ## Test
 
-- Run a DynamoDB container
+1. Run a DynamoDB container
 
 ```
 $ make test
@@ -43,6 +43,7 @@ $ make test
 ## Swagger Docs
 
 Go to [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
+
 
 ## Credits
 
